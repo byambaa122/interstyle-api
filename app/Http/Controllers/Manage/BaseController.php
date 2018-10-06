@@ -27,9 +27,9 @@ class BaseController extends Controller
      */
 	protected function requestParams(Request $request)
 	{
-        $data = $request->all();
+        $params = $request->all();
         
-        return snakeCaseKeys($data);
+        return snakeCaseKeys($params);
 	}
 
 	/**
@@ -46,11 +46,11 @@ class BaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-	protected function responseJSON($data)
+	protected function responseJSON($data, $type = 'singular')
 	{
         $className = class_basename($this->model);
 
-		$key = is_array($data)
+		$key = $type === 'plural'
             ? str_plural($className)
             : $className;
 
@@ -68,7 +68,7 @@ class BaseController extends Controller
     {
 		$models = $this->model::all();
 
-		return $this->responseJSON($models);
+		return $this->responseJSON($models, 'plural');
     }
     
     /**
@@ -95,8 +95,13 @@ class BaseController extends Controller
 		$params = $this->requestParams($request);
 
         // Validation
-		$validator = $this->validator($params)
-            ->validate();
+		$validator = $this->validator($params);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
         if ($request->filled('id')) {
 			$model = $this->model::findOrFail($request->input('id'));

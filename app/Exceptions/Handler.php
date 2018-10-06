@@ -51,29 +51,4 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
-
-    /**
-     * Convert a validation exception into a JSON response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Validation\ValidationException  $exception
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function invalidJson($request, ValidationException $exception)
-    {
-        return response()->json([
-            'message' => $exception->getMessage(),
-            'errors' => $this->expandDotNotationKeys($exception->errors()),
-        ], $exception->status);
-    }
-
-    protected static function expandDotNotationKeys(Array $array)
-    {
-        $newArray = [];
-        foreach ($array as $key => $value) {
-            array_set($newArray, $key, $value);
-        }
-
-        return $newArray;
-    }
 }
