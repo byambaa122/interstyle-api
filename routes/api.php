@@ -18,11 +18,17 @@ Route::namespace('Auth')->group(function () {
 	Route::post('register', 'RegisterController@register');
 });
 
-// Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 	Route::get('user', 'AppController@getUser');
 	Route::post('image/upload', 'ImageController@upload');
 
 	Route::namespace('Manage')->group(function () {
+        // Users route
+        Route::get('users', 'UserController@get');
+        Route::get('users/{id}', 'UserController@show');
+        Route::post('users', 'UserController@storeOrUpdate');
+        Route::delete('users/{id}', 'UserController@destroy');
+
         // Materials route
         Route::get('materials', 'MaterialController@get');
         Route::get('materials/{id}', 'MaterialController@show');
@@ -47,4 +53,4 @@ Route::namespace('Auth')->group(function () {
         Route::post('product/categories', 'MaterialCategoryController@storeOrUpdate');
         Route::delete('product/categories/{id}', 'MaterialCategoryController@destroy');
     });
-// });
+});

@@ -29,7 +29,7 @@ class BaseController extends Controller
 	{
         $params = $request->all();
         
-        return snakeCaseKeys($params);
+        return $params;
 	}
 
 	/**
@@ -55,20 +55,38 @@ class BaseController extends Controller
             : $className;
 
 		return response()->json([
-            $key => $data,
+            camel_case($key) => $data,
         ]);
 	}
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function get()
+    public function get(Request $request)
     {
-		$models = $this->model::all();
+        // Search input
+		$search = $request->query('search');
+		// Pagination page length
+        $rowsPerPage = (int) $request->query('rowsPerPage', 25);
+		// Sort column
+        $sortBy = snake_case($request->query('sortBy', 'createdAt'));
+		// Sort direction
+        $direction = $request->query('direction', 'desc');
 
-		return $this->responseJSON($models, 'plural');
+		$searchQuery = $this->model
+            ->when($search, function ($query, $search) {
+                return $query->search($search);
+            })
+            ->orderBy($sortBy, $direction);
+
+        if ($rowsPerPage === -1) {
+            $rowsPerPage = $searchQuery->count();
+        }
+
+		return response()->json($searchQuery->paginate($rowsPerPage));
     }
     
     /**
@@ -92,23 +110,18 @@ class BaseController extends Controller
      */
     public function storeOrUpdate(Request $request)
     {
-		$params = $this->requestParams($request);
+        // Validate request
+		$validator = $this->validator($request->all())
+            ->validate();
 
-        // Validation
-		$validator = $this->validator($params);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
+		$params = snakeCaseKeys($this->requestParams($request));
 
         if ($request->filled('id')) {
 			$model = $this->model::findOrFail($request->input('id'));
 			$model->update($params);
 		} else {
 			$model = $this->model::create($params);
-			$model = $this->model::findOrFail($model->id);
+            $model->refresh();
 		}
 
 		$this->afterCommit($model, $request);

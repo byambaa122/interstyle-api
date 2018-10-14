@@ -14,11 +14,11 @@ class MaterialController extends BaseController
 
 	protected function requestParams($request)
 	{
-		$params = $request->only(['code', 'description', 'images', 'material', 'price']);
+		$data = $request->only(['code', 'description', 'images', 'material', 'price']);
         $params = array_merge($data, [
             'material_category_id' => $request->input('materialCategory.id'),
         ]);
 
-        return snakeCaseKeys($params);
+        return $params;
 	}
 }

@@ -14,11 +14,11 @@ class ProductController extends BaseController
 
 	protected function requestParams($request)
 	{
-		$params = $request->only(['code', 'description', 'images', 'material', 'price']);
+		$data = $request->only(['code', 'description', 'images', 'material', 'price']);
         $params = array_merge($data, [
             'product_category_id' => $request->input('productCategory.id'),
         ]);
 
-        return snakeCaseKeys($params);
+        return $params;
 	}
 }

@@ -1,15 +1,5 @@
 <?php
 
-function expandDotNotationKeys(array $data)
-{
-    $array = [];
-    foreach ($data as $key => $value) {
-        array_set($array, $key, $value);
-    }
-
-    return $array;
-}
-
 function snakeCaseKeys(array $data) {
 	$array = [];
 	foreach ($data as $key => $value) {
