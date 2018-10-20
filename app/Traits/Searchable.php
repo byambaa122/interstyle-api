@@ -14,7 +14,7 @@ trait Searchable
     public function scopeSearch($query, $search)
     {
 		foreach ($this->searchable as $column) {
-			$query->orWhere($column, 'LIKE', '%' . $search . '%');
+            $query->orWhere($column, 'LIKE', '%' . $search . '%');
 		}
 
 		return $query;

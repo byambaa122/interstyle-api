@@ -7,6 +7,7 @@ use App\Traits\Searchable;
 class ProductCategory extends Base
 {
     use Searchable;
+    
 	/**
      * The table associated with the model.
      *

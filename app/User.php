@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'is_admin',
     ];
 
     /**
@@ -53,11 +53,11 @@ class User extends Authenticatable
 	 *
 	 * @return array
 	 */
-	public function rules()
+	public function rules($id = null)
 	{
 		return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
         ];
 	}
 }

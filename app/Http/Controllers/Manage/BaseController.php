@@ -11,12 +11,12 @@ class BaseController extends Controller
     /**
      * Get a validator for an incoming request.
      *
-     * @param  array  $data
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Validation\Validator
      */
-	protected function validator(array $data)
+	protected function validator(Request $request)
 	{
-		return Validator::make($data, $this->model->rules());
+		return Validator::make($request->all(), $this->model->rules($request->input('id')));
 	}
 
     /**
@@ -111,7 +111,7 @@ class BaseController extends Controller
     public function storeOrUpdate(Request $request)
     {
         // Validate request
-		$validator = $this->validator($request->all())
+		$validator = $this->validator($request)
             ->validate();
 
 		$params = snakeCaseKeys($this->requestParams($request));
