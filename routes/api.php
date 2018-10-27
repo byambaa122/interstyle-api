@@ -19,7 +19,9 @@ Route::namespace('Auth')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
+    // Current user
 	Route::get('user', 'AppController@getUser');
+    // Image upload
 	Route::post('image/upload', 'ImageController@upload');
 
 	Route::namespace('Manage')->group(function () {
