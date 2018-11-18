@@ -14,7 +14,7 @@ class ProductController extends BaseController
 
 	protected function requestParams($request)
 	{
-		$data = $request->only(['code', 'description', 'images', 'material', 'price']);
+		$data = $request->only(['code', 'description', 'images', 'price']);
         $params = array_merge($data, [
             'product_category_id' => $request->input('productCategory.id'),
         ]);

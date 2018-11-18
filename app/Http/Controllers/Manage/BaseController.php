@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 class BaseController extends Controller
 {
+    protected $model;
+    
     /**
      * Get a validator for an incoming request.
      *

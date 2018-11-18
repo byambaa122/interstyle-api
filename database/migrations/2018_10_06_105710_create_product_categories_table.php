@@ -17,6 +17,7 @@ class CreateProductCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('image');
+            $table->string('icon');
             $table->timestamps();
         });
     }

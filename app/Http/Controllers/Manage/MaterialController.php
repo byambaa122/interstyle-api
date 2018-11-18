@@ -14,7 +14,7 @@ class MaterialController extends BaseController
 
 	protected function requestParams($request)
 	{
-		$data = $request->only(['code', 'description', 'images', 'material', 'price']);
+		$data = $request->only(['code', 'description', 'images', 'price']);
         $params = array_merge($data, [
             'material_category_id' => $request->input('materialCategory.id'),
         ]);

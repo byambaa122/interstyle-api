@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'is_admin',
+        'name', 'email', 'avatar', 'password', 'is_admin',
     ];
 
     /**
@@ -56,8 +56,10 @@ class User extends Authenticatable
 	public function rules($id = null)
 	{
 		return [
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'avatar' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:6',
         ];
 	}
 }

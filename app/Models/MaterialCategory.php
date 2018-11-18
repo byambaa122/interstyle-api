@@ -21,7 +21,7 @@ class MaterialCategory extends Base
      * @var array
      */
     protected $fillable = [
-        'name', 'image',
+        'name', 'icon',
     ];
 
 	/**
@@ -42,7 +42,7 @@ class MaterialCategory extends Base
 	{
 		return [
             'name' => 'required|string|max:255',
-            'image' => 'required|string|max:255',
+            'icon' => 'required|string|max:255',
         ];
 	}
 

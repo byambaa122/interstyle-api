@@ -21,7 +21,7 @@ class ProductCategory extends Base
      * @var array
      */
     protected $fillable = [
-        'name', 'image',
+        'name', 'image', 'icon',
     ];
 
 	/**
@@ -43,6 +43,7 @@ class ProductCategory extends Base
 		return [
             'name' => 'required|string|max:255',
             'image' => 'required|string|max:255',
+            'icon' => 'required|string|max:255',
         ];
 	}
 

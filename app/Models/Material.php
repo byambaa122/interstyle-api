@@ -26,7 +26,7 @@ class Material extends Base
      * @var array
      */
     protected $fillable = [
-        //
+        'code', 'description', 'images', 'price', 'material_category_id',
     ];
 
     /**
