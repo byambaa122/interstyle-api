@@ -12,10 +12,10 @@ class ProductController extends BaseController
 		$this->model = $product;
 	}
 
-	protected function requestParams($request)
+	protected function requestParams(Request $request)
 	{
-		$data = $request->only(['code', 'description', 'images', 'price']);
-        $params = array_merge($data, [
+        $params = $request->all();
+        $params = array_merge($params, [
             'product_category_id' => $request->input('productCategory.id'),
         ]);
 

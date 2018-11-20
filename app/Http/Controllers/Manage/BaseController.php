@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class BaseController extends Controller
 {
+    /**
+     * Model.
+     *
+     * @var class
+     */
     protected $model;
     
     /**

@@ -12,10 +12,10 @@ class MaterialController extends BaseController
 		$this->model = $material;
 	}
 
-	protected function requestParams($request)
+	protected function requestParams(Request $request)
 	{
-		$data = $request->only(['code', 'description', 'images', 'price']);
-        $params = array_merge($data, [
+        $params = $request->all();
+        $params = array_merge($params, [
             'material_category_id' => $request->input('materialCategory.id'),
         ]);
 
