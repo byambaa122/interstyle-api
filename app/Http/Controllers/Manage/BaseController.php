@@ -38,14 +38,6 @@ class BaseController extends Controller
         
         return $params;
 	}
-
-	/**
-	 * Custom operations
-	 */
-	protected function afterCommit($data, Request $request)
-    {
-        //
-	}
     
     /**
      * Return JSON response.
@@ -131,9 +123,27 @@ class BaseController extends Controller
             $model->refresh();
 		}
 
-		$this->afterCommit($model, $request);
-
 		return $this->responseJSON($model);
+    }
+
+    /**
+     * Remove the specified resources from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function massDestroy(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|digits_between:1,11',
+        ]);
+
+        $this->model::destroy($request->input('ids'));
+
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     /**

@@ -26,8 +26,7 @@ class ImageController extends Controller
 
 		$image = $request->file('image');
 
-		$storagePath = Storage::disk('public')
-            ->put('images', $image, 'public');
+		$storagePath = Storage::put('images', $image, 'public');
 
 		return response()->json([
 			'path' => $storagePath,
