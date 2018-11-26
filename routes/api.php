@@ -18,42 +18,72 @@ Route::namespace('Auth')->group(function () {
 	Route::post('register', 'RegisterController@register');
 });
 
+Route::get('products', 'AppController@products');
+Route::get('materials', 'AppController@materials');
+Route::get('products/{id}', 'AppController@showProduct');
+Route::get('materials/{id}', 'AppController@showMaterial');
+Route::get('special/products', 'AppController@specialProducts');
+Route::get('special/materials', 'AppController@specialMaterials');
+Route::get('product/categories', 'AppController@productCategories');
+Route::get('material/categories', 'AppController@materialCategories');
+Route::get('features', 'AppController@features');
+Route::get('quotes', 'AppController@quotes');
+
 Route::middleware(['auth:api', 'admin'])->group(function () {
     // Current user
 	Route::get('user', 'AppController@getUser');
     // Image upload
 	Route::post('image/upload', 'ImageController@upload');
 
-	Route::namespace('Manage')->group(function () {
+	Route::namespace('Manage')->prefix('manage')->group(function () {
         // Users route
         Route::get('users', 'UserController@get');
         Route::get('users/{id}', 'UserController@show');
         Route::post('users', 'UserController@storeOrUpdate');
+        Route::post('users/delete', 'UserController@massDestroy');
         Route::delete('users/{id}', 'UserController@destroy');
 
         // Materials route
         Route::get('materials', 'MaterialController@get');
         Route::get('materials/{id}', 'MaterialController@show');
         Route::post('materials', 'MaterialController@storeOrUpdate');
+        Route::post('materials/delete', 'MaterialController@massDestroy');
         Route::delete('materials/{id}', 'MaterialController@destroy');
 
         // Material categories route
         Route::get('material/categories', 'MaterialCategoryController@get');
         Route::get('material/categories/{id}', 'MaterialCategoryController@show');
         Route::post('material/categories', 'MaterialCategoryController@storeOrUpdate');
+        Route::post('material/categories/delete', 'MaterialCategoryController@massDestroy');
         Route::delete('material/categories/{id}', 'MaterialCategoryController@destroy');
 
         // Products route
         Route::get('products', 'ProductController@get');
         Route::get('products/{id}', 'ProductController@show');
         Route::post('products', 'ProductController@storeOrUpdate');
+        Route::post('products/delete', 'ProductController@massDestroy');
         Route::delete('products/{id}', 'ProductController@destroy');
 
         // Product categories route
         Route::get('product/categories', 'MaterialCategoryController@get');
         Route::get('product/categories/{id}', 'MaterialCategoryController@show');
         Route::post('product/categories', 'MaterialCategoryController@storeOrUpdate');
+        Route::post('product/categories/delete', 'MaterialCategoryController@massDestroy');
         Route::delete('product/categories/{id}', 'MaterialCategoryController@destroy');
+
+        // Quotes route
+        Route::get('quotes', 'QuoteController@get');
+        Route::get('quotes/{id}', 'QuoteController@show');
+        Route::post('quotes', 'QuoteController@storeOrUpdate');
+        Route::post('quotes/delete', 'QuoteController@massDestroy');
+        Route::delete('quotes/{id}', 'QuoteController@destroy');
+
+        // Features route
+        Route::get('features', 'FeatureController@get');
+        Route::get('features/{id}', 'FeatureController@show');
+        Route::post('features', 'FeatureController@storeOrUpdate');
+        Route::post('features/delete', 'FeatureController@massDestroy');
+        Route::delete('features/{id}', 'FeatureController@destroy');
     });
 });
 
