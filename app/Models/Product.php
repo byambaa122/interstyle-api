@@ -26,7 +26,7 @@ class Product extends Base
      * @var array
      */
     protected $fillable = [
-        'code', 'description', 'images', 'price', 'product_category_id',
+        'code', 'description', 'images', 'price', 'is_special', 'product_category_id',
     ];
 
     /**
@@ -64,6 +64,6 @@ class Product extends Base
      */
     public function productCategory()
     {
-        return $this->hasMany('App\Models\ProductCategory');
+        return $this->belongsTo('App\Models\ProductCategory');
     }
 }

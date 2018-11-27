@@ -49,7 +49,7 @@ class ImageController extends Controller
                 // Source filesystem
                 'source' => $filesystem->getDriver(),
 				// Source filesystem path prefix
-				'source_path_prefix' => 'public/images',
+				'source_path_prefix' => 'images',
                 // Cache filesystem
                 'cache' => $filesystem->getDriver(),
                 // Cache filesystem path prefix

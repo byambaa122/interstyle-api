@@ -64,6 +64,6 @@ class Material extends Base
      */
     public function materialCategory()
     {
-        return $this->hasMany('App\Models\MaterialCategory');
+        return $this->belongsTo('App\Models\MaterialCategory');
     }
 }
