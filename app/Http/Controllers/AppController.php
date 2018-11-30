@@ -122,4 +122,28 @@ class AppController extends Controller
             'materialCategories' => $materialCategories,
         ]);
     }
+
+    public function suggestProducts(Request $request, $id)
+    {
+        $limit = $request->query('limit', 4);
+        $products = \App\Models\Product::where('product_category_id', 1)
+            ->take($limit)
+            ->get();
+
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
+
+    public function suggestMaterials(Request $request, $id)
+    {
+        $limit = $request->query('limit', 4);
+        $materials = \App\Models\Material::where('material_category_id', 1)
+            ->take($limit)
+            ->get();
+
+        return response()->json([
+            'materials' => $materials,
+        ]);
+    }
 }

@@ -26,8 +26,17 @@ class Material extends Base
      * @var array
      */
     protected $fillable = [
-        'code', 'description', 'images', 'price', 'material_category_id',
+        'code', 'description', 'images', 'price', 'is_special', 'material_category_id',
     ];
+
+	/**
+	 * The attributes that are searchable.
+	 *
+	 * @var array
+	 */
+	protected $searchable = [
+		'code', 'description',
+	];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -55,7 +64,12 @@ class Material extends Base
 	public function rules()
 	{
 		return [
-            //
+            'code' => 'required|string|max:255',
+            'description' => 'required|string',
+            'images' => 'required|array',
+            'price' => 'required|integer|digits_between:1,11',
+            'isSpecial' => 'boolean',
+            'materialCategory.id' => 'required|integer|digits_between:1,11',
         ];
 	}
 

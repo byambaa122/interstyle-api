@@ -17,7 +17,9 @@ class Product extends Base
      * @var array
      */
     protected $casts = [
+        'isSpecial' => 'boolean',
         'images' => 'array',
+        'size' => 'array',
     ];
 
     /**
@@ -26,8 +28,17 @@ class Product extends Base
      * @var array
      */
     protected $fillable = [
-        'code', 'description', 'images', 'price', 'is_special', 'product_category_id',
+        'code', 'description', 'images', 'measure', 'price', 'is_special', 'product_category_id',
     ];
+
+	/**
+	 * The attributes that are searchable.
+	 *
+	 * @var array
+	 */
+	protected $searchable = [
+		'code', 'description', 'measure',
+	];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -55,7 +66,13 @@ class Product extends Base
 	public function rules()
 	{
 		return [
-            //
+            'code' => 'required|string|max:255',
+            'description' => 'required|string',
+            'images' => 'required|array',
+            'measure' => 'required|string|in:linear,square,cubic',
+            'price' => 'required|integer|digits_between:1,11',
+            'isSpecial' => 'boolean',
+            'productCategory.id' => 'required|integer|digits_between:1,11',
         ];
 	}
 

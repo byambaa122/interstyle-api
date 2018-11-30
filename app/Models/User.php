@@ -60,6 +60,7 @@ class User extends Authenticatable
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'avatar' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:6',
+            'isAdmin' => 'boolean',
         ];
 	}
 }
