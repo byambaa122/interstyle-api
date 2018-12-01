@@ -45,8 +45,8 @@ Route::namespace('Manage')->prefix('manage')->group(function () {
     Route::get('products/{id}', 'ProductController@show');
 
     // Product categories route
-    Route::get('product/categories', 'MaterialCategoryController@get');
-    Route::get('product/categories/{id}', 'MaterialCategoryController@show');
+    Route::get('product/categories', 'ProductCategoryController@get');
+    Route::get('product/categories/{id}', 'ProductCategoryController@show');
 
     // Quotes route
     Route::get('quotes', 'QuoteController@get');
@@ -87,9 +87,9 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
         Route::delete('products/{id}', 'ProductController@destroy');
 
         // Product categories route
-        Route::post('product/categories', 'MaterialCategoryController@storeOrUpdate');
-        Route::post('product/categories/delete', 'MaterialCategoryController@massDestroy');
-        Route::delete('product/categories/{id}', 'MaterialCategoryController@destroy');
+        Route::post('product/categories', 'ProductCategoryController@storeOrUpdate');
+        Route::post('product/categories/delete', 'ProductCategoryController@massDestroy');
+        Route::delete('product/categories/{id}', 'ProductCategoryController@destroy');
 
         // Quotes route
         Route::post('quotes', 'QuoteController@storeOrUpdate');
