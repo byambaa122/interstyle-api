@@ -26,6 +26,8 @@ Route::get('special/products', 'AppController@specialProducts');
 Route::get('special/materials', 'AppController@specialMaterials');
 Route::get('product/categories', 'AppController@productCategories');
 Route::get('material/categories', 'AppController@materialCategories');
+Route::get('suggest/products/{id}', 'AppController@suggestProducts');
+Route::get('suggest/materials/{id}', 'AppController@suggestMaterials');
 Route::get('features', 'AppController@features');
 Route::get('quotes', 'AppController@quotes');
 

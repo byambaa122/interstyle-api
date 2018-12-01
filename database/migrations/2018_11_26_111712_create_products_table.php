@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('code');
             $table->text('description');
             $table->text('images');
+            $table->string('measure');
             $table->integer('price');
             $table->boolean('is_special')->default(false);
             $table->timestamps();

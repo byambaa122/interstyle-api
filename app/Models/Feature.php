@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\Searchable;
-
 class Feature extends Base
 {
-    use Searchable;
-    
 	/**
      * The table associated with the model.
      *

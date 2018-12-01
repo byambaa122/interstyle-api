@@ -15,7 +15,7 @@ class UserController extends BaseController
 
     protected function requestParams(Request $request)
     {
-        $data = $request->only(['name', 'email', 'avatar']);
+        $data = $request->only(['name', 'email', 'avatar', 'isAdmin']);
        
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->input('password'));
